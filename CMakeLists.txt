@@ -69,4 +69,6 @@ include(c)
 
 option(BUILD_EXAMPLES "Build examples" ON)
 message(STATUS "Build examples: ${BUILD_EXAMPLES}")
+IF (BUILD_EXAMPLES)
 add_subdirectory(examples)
+ENDIF()
