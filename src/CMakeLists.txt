@@ -1,4 +1,4 @@
-add_library(GLPK)
+add_library(GLPK STATIC)
 target_sources(GLPK PRIVATE glpk.h)
 add_subdirectory(amd)
 add_subdirectory(api)
