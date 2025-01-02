@@ -231,7 +231,7 @@ static struct csv *csv_open_file(TABDCA *dca, int mode)
       {  xprintf("csv_driver: file name not specified\n");
          longjmp(csv->jump, 0);
       }
-      csv->fname = xmalloc(strlen(mpl_tab_get_arg(dca, 2))+1);
+      csv->fname = xmalloc((int)strlen(mpl_tab_get_arg(dca, 2))+1);
       strcpy(csv->fname, mpl_tab_get_arg(dca, 2));
       if (mode == 'R')
       {  /* open the file for reading */
@@ -721,7 +721,7 @@ static struct dbf *dbf_open_file(TABDCA *dca, int mode)
       {  xprintf("xBASE driver: file name not specified\n");
          longjmp(dbf->jump, 0);
       }
-      dbf->fname = xmalloc(strlen(mpl_tab_get_arg(dca, 2))+1);
+      dbf->fname = xmalloc((int)strlen(mpl_tab_get_arg(dca, 2))+1);
       strcpy(dbf->fname, mpl_tab_get_arg(dca, 2));
       if (mode == 'R')
       {  /* open the file for reading */

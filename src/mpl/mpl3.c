@@ -427,7 +427,7 @@ tail = (tail->next = dmp_get_atom(mpl->strings, sizeof(STRING))), j = 0;
 #else
 {     STRING *str;
       xassert(strlen(buf) <= MAX_LENGTH);
-      str = dmp_get_atom(mpl->strings, strlen(buf)+1);
+      str = dmp_get_atom(mpl->strings, (int)strlen(buf)+1);
       strcpy(str, buf);
       return str;
 }
@@ -546,7 +546,7 @@ void delete_string
       return;
 }
 #else
-{     dmp_free_atom(mpl->strings, str, strlen(str)+1);
+{     dmp_free_atom(mpl->strings, str, (int)strlen(str)+1);
       return;
 }
 #endif
@@ -3799,7 +3799,7 @@ double eval_numeric(MPL *mpl, CODE *code)
                else
                   fetch_string(mpl, sym->str, str);
                delete_symbol(mpl, sym);
-               value = strlen(str);
+               value = (double)strlen(str);
             }
             break;
          case O_STR2TIME:
@@ -5117,7 +5117,7 @@ void execute_table(MPL *mpl, TABLE *tab)
          else
             fetch_string(mpl, sym->str, buf);
          delete_symbol(mpl, sym);
-         dca->arg[k] = xmalloc(strlen(buf)+1);
+         dca->arg[k] = xmalloc((int)strlen(buf)+1);
          strcpy(dca->arg[k], buf);
       }
       /* perform table input/output */
@@ -5928,7 +5928,7 @@ void execute_printf(MPL *mpl, PRINTF *prt)
             if (mpl->prt_fp == NULL)
                error(mpl, "unable to open '%s' for writing - %s",
                   fname, get_err_msg());
-            mpl->prt_file = xmalloc(strlen(fname)+1);
+            mpl->prt_file = xmalloc((int)strlen(fname)+1);
             strcpy(mpl->prt_file, fname);
          }
       }

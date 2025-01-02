@@ -281,7 +281,7 @@ void npp_del_row(NPP *npp, NPPROW *row)
       NPPAIJ *aij;
 #endif
       if (row->name != NULL)
-         dmp_free_atom(npp->pool, row->name, strlen(row->name)+1);
+         dmp_free_atom(npp->pool, row->name, (int)strlen(row->name)+1);
 #if 0 /* 23/XII-2009 */
       while (row->ptr != NULL)
       {  aij = row->ptr;
@@ -308,7 +308,7 @@ void npp_del_col(NPP *npp, NPPCOL *col)
 {     /* remove column from the current problem */
       NPPAIJ *aij;
       if (col->name != NULL)
-         dmp_free_atom(npp->pool, col->name, strlen(col->name)+1);
+         dmp_free_atom(npp->pool, col->name, (int)strlen(col->name)+1);
       while (col->ptr != NULL)
       {  aij = col->ptr;
          col->ptr = aij->c_next;
@@ -372,11 +372,11 @@ void npp_load_prob(NPP *npp, glp_prob *orig, int names, int sol,
       npp->orig_n = n;
       npp->orig_nnz = orig->nnz;
       if (names && orig->name != NULL)
-      {  npp->name = dmp_get_atom(npp->pool, strlen(orig->name)+1);
+      {  npp->name = dmp_get_atom(npp->pool, (int)strlen(orig->name)+1);
          strcpy(npp->name, orig->name);
       }
       if (names && orig->obj != NULL)
-      {  npp->obj = dmp_get_atom(npp->pool, strlen(orig->obj)+1);
+      {  npp->obj = dmp_get_atom(npp->pool, (int)strlen(orig->obj)+1);
          strcpy(npp->obj, orig->obj);
       }
       npp->c0 = dir * orig->c0;
@@ -388,7 +388,7 @@ void npp_load_prob(NPP *npp, glp_prob *orig, int names, int sol,
          link[i] = row = npp_add_row(npp);
          xassert(row->i == i);
          if (names && rrr->name != NULL)
-         {  row->name = dmp_get_atom(npp->pool, strlen(rrr->name)+1);
+         {  row->name = dmp_get_atom(npp->pool, (int)strlen(rrr->name)+1);
             strcpy(row->name, rrr->name);
          }
          if (!scaling)
@@ -429,7 +429,7 @@ void npp_load_prob(NPP *npp, glp_prob *orig, int names, int sol,
          col = npp_add_col(npp);
          xassert(col->j == j);
          if (names && ccc->name != NULL)
-         {  col->name = dmp_get_atom(npp->pool, strlen(ccc->name)+1);
+         {  col->name = dmp_get_atom(npp->pool, (int)strlen(ccc->name)+1);
             strcpy(col->name, ccc->name);
          }
          if (sol == GLP_MIP)

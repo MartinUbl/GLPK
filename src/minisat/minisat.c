@@ -341,7 +341,7 @@ static clause* clause_new(solver* s, lit* begin, lit* end, int learnt)
 
     assert(end - begin > 1);
     assert(learnt >= 0 && learnt < 2);
-    size           = end - begin;
+    size           = (int)(end - begin);
     c              = (clause*)malloc(sizeof(clause)
                      + sizeof(lit) * size + learnt * sizeof(float));
     c->size_learnt = (size << 1) | learnt;
@@ -843,7 +843,7 @@ clause* solver_propagate(solver* s)
         }
 
         s->stats.inspects += j - (clause**)vecp_begin(ws);
-        vecp_resize(ws,j - (clause**)vecp_begin(ws));
+        vecp_resize(ws, (int)(j - (clause**)vecp_begin(ws)));
     }
 
     return confl;

@@ -104,7 +104,7 @@ static int check_vb(struct csa *csa, int i, int *x, int *z, double *a,
 {     glp_prob *P = csa->P;
       GLPROW *row;
       GLPAIJ *a1, *a2;
-      int type;
+      int type = GLP_FR;
       double rhs;
       xassert(1 <= i && i <= P->m);
       row = P->row[i];
@@ -725,15 +725,15 @@ static double simple_cover(int n, const double a[], double b, const
       s = 0;
       for (j = 1; j <= n; j++)
       {  s += a[j];
-         aa[j] = ceil(a[j] / max_aj * 1000);
+         aa[j] = (int)ceil(a[j] / max_aj * 1000);
       }
-      bb = floor((s - b) / max_aj * 1000) - 1;
+      bb = (int)floor((s - b) / max_aj * 1000) - 1;
       /* scale and round obj. coefficients to make them integral;
        * again we make the objective function stronger than (10), so
        * the coefficients are rounded down */
       for (j = 1; j <= n; j++)
       {  xassert(0 <= x[j] && x[j] <= 1);
-         cc[j] = floor((1 - x[j]) * 1000);
+         cc[j] = (int)floor((1 - x[j]) * 1000);
       }
       /* solve separation problem */
       if (solve_ks(n, aa, bb, cc, z) == INT_MIN)

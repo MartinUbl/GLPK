@@ -1,5 +1,6 @@
 add_library(GLPK STATIC)
 target_sources(GLPK PRIVATE glpk.h)
+target_compile_definitions(GLPK PUBLIC -D_CRT_SECURE_NO_WARNINGS)
 add_subdirectory(amd)
 add_subdirectory(api)
 add_subdirectory(bflib)

@@ -813,7 +813,7 @@ CODE *string_literal(MPL *mpl)
 {     CODE *code;
       OPERANDS arg;
       xassert(mpl->token == T_STRING);
-      arg.str = dmp_get_atomv(mpl->pool, strlen(mpl->image)+1);
+      arg.str = dmp_get_atomv(mpl->pool, (int)strlen(mpl->image)+1);
       strcpy(arg.str, mpl->image);
       code = make_code(mpl, O_STRING, &arg, A_SYMBOLIC, 0);
       get_token(mpl /* <string literal> */);
@@ -1559,7 +1559,7 @@ CODE *expression_list(MPL *mpl)
             }
             /* current component of <expression list> is dummy index */
             list[dim].name
-               = dmp_get_atomv(mpl->pool, strlen(mpl->image)+1);
+               = dmp_get_atomv(mpl->pool, (int)strlen(mpl->image)+1);
             strcpy(list[dim].name, mpl->image);
             list[dim].code = NULL;
             get_token(mpl /* <symbolic name> */);
@@ -1748,7 +1748,7 @@ DOMAIN *indexing_expression(MPL *mpl)
             /* create domain block with one slot, which is assigned the
                dummy index */
             block = create_block(mpl);
-            name = dmp_get_atomv(mpl->pool, strlen(mpl->image)+1);
+            name = dmp_get_atomv(mpl->pool, (int)strlen(mpl->image)+1);
             strcpy(name, mpl->image);
             append_slot(mpl, block, name, NULL);
             get_token(mpl /* <symbolic name> */);
@@ -2967,7 +2967,7 @@ SET *set_statement(MPL *mpl)
          error(mpl, "%s multiply declared", mpl->image);
       /* create model set */
       set = alloc(SET);
-      set->name = dmp_get_atomv(mpl->pool, strlen(mpl->image)+1);
+      set->name = dmp_get_atomv(mpl->pool, (int)strlen(mpl->image)+1);
       strcpy(set->name, mpl->image);
       set->alias = NULL;
       set->dim = 0;
@@ -2982,7 +2982,7 @@ SET *set_statement(MPL *mpl)
       get_token(mpl /* <symbolic name> */);
       /* parse optional alias */
       if (mpl->token == T_STRING)
-      {  set->alias = dmp_get_atomv(mpl->pool, strlen(mpl->image)+1);
+      {  set->alias = dmp_get_atomv(mpl->pool, (int)strlen(mpl->image)+1);
          strcpy(set->alias, mpl->image);
          get_token(mpl /* <string literal> */);
       }
@@ -3212,7 +3212,7 @@ PARAMETER *parameter_statement(MPL *mpl)
          error(mpl, "%s multiply declared", mpl->image);
       /* create model parameter */
       par = alloc(PARAMETER);
-      par->name = dmp_get_atomv(mpl->pool, strlen(mpl->image)+1);
+      par->name = dmp_get_atomv(mpl->pool, (int)strlen(mpl->image)+1);
       strcpy(par->name, mpl->image);
       par->alias = NULL;
       par->dim = 0;
@@ -3228,7 +3228,7 @@ PARAMETER *parameter_statement(MPL *mpl)
       get_token(mpl /* <symbolic name> */);
       /* parse optional alias */
       if (mpl->token == T_STRING)
-      {  par->alias = dmp_get_atomv(mpl->pool, strlen(mpl->image)+1);
+      {  par->alias = dmp_get_atomv(mpl->pool, (int)strlen(mpl->image)+1);
          strcpy(par->alias, mpl->image);
          get_token(mpl /* <string literal> */);
       }
@@ -3470,7 +3470,7 @@ VARIABLE *variable_statement(MPL *mpl)
          error(mpl, "%s multiply declared", mpl->image);
       /* create model variable */
       var = alloc(VARIABLE);
-      var->name = dmp_get_atomv(mpl->pool, strlen(mpl->image)+1);
+      var->name = dmp_get_atomv(mpl->pool, (int)strlen(mpl->image)+1);
       strcpy(var->name, mpl->image);
       var->alias = NULL;
       var->dim = 0;
@@ -3482,7 +3482,7 @@ VARIABLE *variable_statement(MPL *mpl)
       get_token(mpl /* <symbolic name> */);
       /* parse optional alias */
       if (mpl->token == T_STRING)
-      {  var->alias = dmp_get_atomv(mpl->pool, strlen(mpl->image)+1);
+      {  var->alias = dmp_get_atomv(mpl->pool, (int)strlen(mpl->image)+1);
          strcpy(var->alias, mpl->image);
          get_token(mpl /* <string literal> */);
       }
@@ -3664,7 +3664,7 @@ CONSTRAINT *constraint_statement(MPL *mpl)
          error(mpl, "%s multiply declared", mpl->image);
       /* create model constraint */
       con = alloc(CONSTRAINT);
-      con->name = dmp_get_atomv(mpl->pool, strlen(mpl->image)+1);
+      con->name = dmp_get_atomv(mpl->pool, (int)strlen(mpl->image)+1);
       strcpy(con->name, mpl->image);
       con->alias = NULL;
       con->dim = 0;
@@ -3677,7 +3677,7 @@ CONSTRAINT *constraint_statement(MPL *mpl)
       get_token(mpl /* <symbolic name> */);
       /* parse optional alias */
       if (mpl->token == T_STRING)
-      {  con->alias = dmp_get_atomv(mpl->pool, strlen(mpl->image)+1);
+      {  con->alias = dmp_get_atomv(mpl->pool, (int)strlen(mpl->image)+1);
          strcpy(con->alias, mpl->image);
          get_token(mpl /* <string literal> */);
       }
@@ -3865,7 +3865,7 @@ CONSTRAINT *objective_statement(MPL *mpl)
          error(mpl, "%s multiply declared", mpl->image);
       /* create model objective */
       obj = alloc(CONSTRAINT);
-      obj->name = dmp_get_atomv(mpl->pool, strlen(mpl->image)+1);
+      obj->name = dmp_get_atomv(mpl->pool, (int)strlen(mpl->image)+1);
       strcpy(obj->name, mpl->image);
       obj->alias = NULL;
       obj->dim = 0;
@@ -3878,7 +3878,7 @@ CONSTRAINT *objective_statement(MPL *mpl)
       get_token(mpl /* <symbolic name> */);
       /* parse optional alias */
       if (mpl->token == T_STRING)
-      {  obj->alias = dmp_get_atomv(mpl->pool, strlen(mpl->image)+1);
+      {  obj->alias = dmp_get_atomv(mpl->pool, (int)strlen(mpl->image)+1);
          strcpy(obj->alias, mpl->image);
          get_token(mpl /* <string literal> */);
       }
@@ -3973,12 +3973,12 @@ TABLE *table_statement(MPL *mpl)
          error(mpl, "%s multiply declared", mpl->image);
       /* create data table */
       tab = alloc(TABLE);
-      tab->name = dmp_get_atomv(mpl->pool, strlen(mpl->image)+1);
+      tab->name = dmp_get_atomv(mpl->pool, (int)strlen(mpl->image)+1);
       strcpy(tab->name, mpl->image);
       get_token(mpl /* <symbolic name> */);
       /* parse optional alias */
       if (mpl->token == T_STRING)
-      {  tab->alias = dmp_get_atomv(mpl->pool, strlen(mpl->image)+1);
+      {  tab->alias = dmp_get_atomv(mpl->pool, (int)strlen(mpl->image)+1);
          strcpy(tab->alias, mpl->image);
          get_token(mpl /* <string literal> */);
       }
@@ -4083,7 +4083,7 @@ input_table:
                "invalid use of reserved keyword %s", mpl->image);
          else
             error(mpl, "field name missing where expected");
-         fld->name = dmp_get_atomv(mpl->pool, strlen(mpl->image)+1);
+         fld->name = dmp_get_atomv(mpl->pool, (int)strlen(mpl->image)+1);
          strcpy(fld->name, mpl->image);
          get_token(mpl /* <symbolic name> */);
          /* add the entry to the end of the list */
@@ -4155,7 +4155,7 @@ input_table:
             strcpy(name, in->par->name);
          }
          /* assign field name */
-         in->name = dmp_get_atomv(mpl->pool, strlen(name)+1);
+         in->name = dmp_get_atomv(mpl->pool, (int)strlen(name)+1);
          strcpy(in->name, name);
          /* add the entry to the end of the list */
          in->next = NULL;
@@ -4200,7 +4200,7 @@ output_table:
          /* assign field name */
          if (name[0] == '\0')
             error(mpl, "field name required");
-         out->name = dmp_get_atomv(mpl->pool, strlen(name)+1);
+         out->name = dmp_get_atomv(mpl->pool, (int)strlen(name)+1);
          strcpy(out->name, name);
          /* add the entry to the end of the list */
          out->next = NULL;

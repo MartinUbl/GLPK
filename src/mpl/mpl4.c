@@ -347,7 +347,7 @@ void open_output(MPL *mpl, char *file)
          if (mpl->out_fp == NULL)
             error(mpl, "unable to create %s - %s", file, get_err_msg());
       }
-      mpl->out_file = xmalloc(strlen(file)+1);
+      mpl->out_file = xmalloc((int)strlen(file)+1);
       strcpy(mpl->out_file, file);
       return;
 }
@@ -622,7 +622,7 @@ int mpl_read_model(MPL *mpl, char *file, int skip_data)
          error(mpl, "empty model section not allowed");
       /* save name of the input text file containing model section for
          error diagnostics during the generation phase */
-      mpl->mod_file = xcalloc(strlen(file)+1, sizeof(char));
+      mpl->mod_file = xcalloc((int)strlen(file)+1, sizeof(char));
       strcpy(mpl->mod_file, mpl->in_file);
       /* allocate content arrays for all model objects */
       alloc_content(mpl);
@@ -872,7 +872,7 @@ char *mpl_get_row_name(MPL *mpl, int i)
          xfault("mpl_get_row_name: i = %d; row number out of range\n",
             i);
       strcpy(name, mpl->row[i]->con->name);
-      len = strlen(name);
+      len = (int)strlen(name);
       xassert(len <= 255);
       t = format_tuple(mpl, '[', mpl->row[i]->memb->tuple);
       while (*t)
@@ -1102,7 +1102,7 @@ char *mpl_get_col_name(MPL *mpl, int j)
          xfault("mpl_get_col_name: j = %d; column number out of range\n"
             , j);
       strcpy(name, mpl->col[j]->var->name);
-      len = strlen(name);
+      len = (int)strlen(name);
       xassert(len <= 255);
       t = format_tuple(mpl, '[', mpl->col[j]->memb->tuple);
       while (*t)

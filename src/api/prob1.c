@@ -134,7 +134,7 @@ void glp_set_prob_name(glp_prob *lp, const char *name)
       if (tree != NULL && tree->reason != 0)
          xerror("glp_set_prob_name: operation not allowed\n");
       if (lp->name != NULL)
-      {  dmp_free_atom(lp->pool, lp->name, strlen(lp->name)+1);
+      {  dmp_free_atom(lp->pool, lp->name, (int)strlen(lp->name)+1);
          lp->name = NULL;
       }
       if (!(name == NULL || name[0] == '\0'))
@@ -146,7 +146,7 @@ void glp_set_prob_name(glp_prob *lp, const char *name)
                xerror("glp_set_prob_name: problem name contains invalid"
                   " character(s)\n");
          }
-         lp->name = dmp_get_atom(lp->pool, strlen(name)+1);
+         lp->name = dmp_get_atom(lp->pool, (int)strlen(name)+1);
          strcpy(lp->name, name);
       }
       return;
@@ -175,7 +175,7 @@ void glp_set_obj_name(glp_prob *lp, const char *name)
       if (tree != NULL && tree->reason != 0)
          xerror("glp_set_obj_name: operation not allowed\n");
      if (lp->obj != NULL)
-      {  dmp_free_atom(lp->pool, lp->obj, strlen(lp->obj)+1);
+      {  dmp_free_atom(lp->pool, lp->obj, (int)strlen(lp->obj)+1);
          lp->obj = NULL;
       }
       if (!(name == NULL || name[0] == '\0'))
@@ -187,7 +187,7 @@ void glp_set_obj_name(glp_prob *lp, const char *name)
                xerror("glp_set_obj_name: objective name contains invali"
                   "d character(s)\n");
          }
-         lp->obj = dmp_get_atom(lp->pool, strlen(name)+1);
+         lp->obj = dmp_get_atom(lp->pool, (int)strlen(name)+1);
          strcpy(lp->obj, name);
       }
       return;
@@ -437,7 +437,7 @@ void glp_set_row_name(glp_prob *lp, int i, const char *name)
             avl_delete_node(lp->r_tree, row->node);
             row->node = NULL;
          }
-         dmp_free_atom(lp->pool, row->name, strlen(row->name)+1);
+         dmp_free_atom(lp->pool, row->name, (int)strlen(row->name)+1);
          row->name = NULL;
       }
       if (!(name == NULL || name[0] == '\0'))
@@ -450,7 +450,7 @@ void glp_set_row_name(glp_prob *lp, int i, const char *name)
                xerror("glp_set_row_name: i = %d: row name contains inva"
                   "lid character(s)\n", i);
          }
-         row->name = dmp_get_atom(lp->pool, strlen(name)+1);
+         row->name = dmp_get_atom(lp->pool, (int)strlen(name)+1);
          strcpy(row->name, name);
          if (lp->r_tree != NULL)
          {  xassert(row->node == NULL);
@@ -494,7 +494,7 @@ void glp_set_col_name(glp_prob *lp, int j, const char *name)
             avl_delete_node(lp->c_tree, col->node);
             col->node = NULL;
          }
-         dmp_free_atom(lp->pool, col->name, strlen(col->name)+1);
+         dmp_free_atom(lp->pool, col->name, (int)strlen(col->name)+1);
          col->name = NULL;
       }
       if (!(name == NULL || name[0] == '\0'))
@@ -507,7 +507,7 @@ void glp_set_col_name(glp_prob *lp, int j, const char *name)
                xerror("glp_set_col_name: j = %d: column name contains i"
                   "nvalid character(s)\n", j);
          }
-         col->name = dmp_get_atom(lp->pool, strlen(name)+1);
+         col->name = dmp_get_atom(lp->pool, (int)strlen(name)+1);
          strcpy(col->name, name);
          if (lp->c_tree != NULL && col->name != NULL)
          {  xassert(col->node == NULL);

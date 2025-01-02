@@ -271,7 +271,7 @@ int proxy(glp_prob *lp, double *zfinal, double *xfinal,
     }
 
     /* get the initial time */
-    csa->GLOtstart = second();
+    csa->GLOtstart = (time_t)second();
 
     /* setting the optimization parameters */
     glp_init_iocp(&parm);
@@ -357,8 +357,8 @@ int proxy(glp_prob *lp, double *zfinal, double *xfinal,
         return -1;
     }
 
-    parm.tm_lim = tlim - tela*1000;
-    tref_lim = (tlim - tela *1000) / 20;
+    parm.tm_lim = tlim - (int)(tela*1000);
+    tref_lim = (tlim - (int)(tela *1000)) / 20;
 
     tout = glp_term_out(GLP_OFF);
     err = glp_intopt(lp, &parm);
@@ -467,7 +467,7 @@ int proxy(glp_prob *lp, double *zfinal, double *xfinal,
         xprintf("TELA = %3.1lf\n",tela*1000);
         xprintf("TLIM = %3.1lf\n",tlim - tela*1000);
 #endif
-        parm_lp.tm_lim = tlim -tela*1000;
+        parm_lp.tm_lim = tlim - (int)(tela*1000);
 
         tout = glp_term_out(GLP_OFF);
         err = glp_simplex(lp,&parm_lp);
@@ -499,7 +499,7 @@ int proxy(glp_prob *lp, double *zfinal, double *xfinal,
             }
             goto done;
         }
-        parm.tm_lim = tlim - tela*1000;
+        parm.tm_lim = tlim - (int)(tela*1000);
         parm.cb_func = NULL;
 #if 0 /* by gioker */
         /* Preprocessing should be disabled because the mip passed
@@ -949,7 +949,7 @@ static int do_refine(struct csa *csa, glp_prob *lp_ref, int ncols,
 
     int j, tout;
     double refineStart = second();
-    double val, tela, tlimit;
+    double val, tela;
 
     if ( glp_get_num_cols(lp_ref) != ncols ) {
         if (verbose) {

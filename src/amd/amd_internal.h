@@ -7,7 +7,9 @@
 
 /* AMD will be exceedingly slow when running in debug mode. */
 #if 1
+#ifndef NDEBUG
 #define NDEBUG
+#endif
 #endif
 
 #include "amd.h"

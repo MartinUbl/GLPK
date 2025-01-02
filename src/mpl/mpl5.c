@@ -324,6 +324,7 @@ void fn_time2str(MPL *mpl, char *str, double t, const char *fmt)
       double temp;
       const char *f;
       char buf[MAX_LENGTH+1];
+      memset(buf, 0, sizeof(buf));
       if (!(-62135596800.0 <= t && t <= 64092211199.0))
          error(mpl, "time2str(%.*g,...); argument out of range",
             DBL_DIG, t);
@@ -553,7 +554,7 @@ void fn_time2str(MPL *mpl, char *str, double t, const char *fmt)
             error(mpl, "time2str; output string length exceeds %d chara"
                "cters", MAX_LENGTH);
          memcpy(str+len, buf, strlen(buf));
-         len += strlen(buf);
+         len += (int)strlen(buf);
       }
       str[len] = '\0';
       return;

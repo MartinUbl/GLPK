@@ -161,7 +161,7 @@ GLOBAL Int AMD_order
     ok = ok && (slen < Int_MAX) ;       /* S[i] for Int i must be OK */
     if (ok)
     {
-        S = amd_malloc (slen * sizeof (Int)) ;
+        S = amd_malloc ((int)(slen * sizeof (Int))) ;
     }
     AMD_DEBUG1 (("slen %g\n", (double) slen)) ;
     if (!S)
@@ -184,7 +184,7 @@ GLOBAL Int AMD_order
     /* order the matrix */
     /* --------------------------------------------------------------------- */
 
-    AMD_1 (n, Cp, Ci, P, Pinv, Len, slen, S, Control, Info) ;
+    AMD_1 (n, Cp, Ci, P, Pinv, Len, (int)slen, S, Control, Info) ;
 
     /* --------------------------------------------------------------------- */
     /* free the workspace */

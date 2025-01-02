@@ -155,7 +155,7 @@ int glp_mincost_relax4(glp_graph *G, int v_rhs, int a_low, int a_cap,
             /* substitute x = x' + low, where 0 <= x' <= cap - low */
             csa.u[k] = (int)(cap - low);
             /* correct demands at endpoints of k-th arc */
-            if (overflow(csa.dfct[a->tail->i], +low))
+            if (overflow(csa.dfct[a->tail->i], (int) +low))
             {  ret = GLP_ERANGE;
                goto done;
             }
@@ -164,7 +164,7 @@ int glp_mincost_relax4(glp_graph *G, int v_rhs, int a_low, int a_cap,
 #else
             csa.dfct[a->tail->i] += (int)low;
 #endif
-            if (overflow(csa.dfct[a->head->i], -low))
+            if (overflow(csa.dfct[a->head->i], (int) -low))
             {  ret = GLP_ERANGE;
                goto done;
             }

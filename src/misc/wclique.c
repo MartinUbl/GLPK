@@ -158,7 +158,7 @@ static void sub(struct csa *csa, int ct, int table[], int level,
             }
          }
          if (left_weight <= (record - curr_weight)) continue;
-         sub(csa, p1 - newtable - 1, newtable, level + 1, curr_weight,
+         sub(csa, (int)(p1 - newtable - 1), newtable, level + 1, curr_weight,
             left_weight);
       }
 done: xfree(newtable);

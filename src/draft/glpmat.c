@@ -526,7 +526,7 @@ void amd_order1(int n, int A_ptr[], int A_ind[], int P_per[])
 
 static void *allocate(size_t n, size_t size)
 {     void *ptr;
-      ptr = xcalloc(n, size);
+      ptr = xcalloc((int)n, (int)size);
       memset(ptr, 0, n * size);
       return ptr;
 }

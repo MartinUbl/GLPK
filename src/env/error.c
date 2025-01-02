@@ -165,7 +165,7 @@ void glp_error_hook(void (*func)(void *info), void *info)
 void put_err_msg(const char *msg)
 {     ENV *env = get_env_ptr();
       int len;
-      len = strlen(msg);
+      len = (int)strlen(msg);
       if (len >= EBUF_SIZE)
          len = EBUF_SIZE - 1;
       memcpy(env->err_buf, msg, len);

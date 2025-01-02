@@ -54,7 +54,7 @@ int gmp_pool_count(void)
       if (gmp_pool == NULL)
          return 0;
       else
-         return dmp_in_use(gmp_pool);
+         return (int)dmp_in_use(gmp_pool);
 }
 
 unsigned short *gmp_get_work(int size)

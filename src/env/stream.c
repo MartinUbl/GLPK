@@ -241,7 +241,7 @@ int glp_read(glp_file *f, void *buf, int nnn)
             if (f->flag & IONULL)
                cnt = 0;
             else if (!(f->flag & IOGZIP))
-            {  cnt = fread(f->base, 1, f->size, (FILE *)(f->file));
+            {  cnt = (int)fread(f->base, 1, f->size, (FILE *)(f->file));
                if (ferror((FILE *)(f->file)))
                {  f->flag |= IOERR;
 #if 0 /* 29/I-2017 */

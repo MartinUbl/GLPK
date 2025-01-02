@@ -61,7 +61,7 @@ int glp_write_cnfsat(glp_prob *P, const char *fname)
                xfprintf(fp, "\n"), count++, len = 0;
             xfprintf(fp, "%s%s", len == 0 ? "" : " ", s);
             if (len > 0) len++;
-            len += strlen(s);
+            len += (int)strlen(s);
          }
          if (len > 0 && len + 1 + 1 > 72)
             xfprintf(fp, "\n"), count++, len = 0;

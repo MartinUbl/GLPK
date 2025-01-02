@@ -100,7 +100,7 @@ glp_graph *glp_create_graph(int v_size, int a_size)
 
 void glp_set_graph_name(glp_graph *G, const char *name)
 {     if (G->name != NULL)
-      {  dmp_free_atom(G->pool, G->name, strlen(G->name)+1);
+      {  dmp_free_atom(G->pool, G->name, (int)strlen(G->name)+1);
          G->name = NULL;
       }
       if (!(name == NULL || name[0] == '\0'))
@@ -112,7 +112,7 @@ void glp_set_graph_name(glp_graph *G, const char *name)
                xerror("glp_set_graph_name: graph name contains invalid "
                   "character(s)\n");
          }
-         G->name = dmp_get_atom(G->pool, strlen(name)+1);
+         G->name = dmp_get_atom(G->pool, (int)strlen(name)+1);
          strcpy(G->name, name);
       }
       return;
@@ -198,7 +198,7 @@ void glp_set_vertex_name(glp_graph *G, int i, const char *name)
             avl_delete_node(G->index, v->entry);
             v->entry = NULL;
          }
-         dmp_free_atom(G->pool, v->name, strlen(v->name)+1);
+         dmp_free_atom(G->pool, v->name, (int)strlen(v->name)+1);
          v->name = NULL;
       }
       if (!(name == NULL || name[0] == '\0'))
@@ -211,7 +211,7 @@ void glp_set_vertex_name(glp_graph *G, int i, const char *name)
                xerror("glp_set_vertex_name: i = %d; vertex name contain"
                   "s invalid character(s)\n", i);
          }
-         v->name = dmp_get_atom(G->pool, strlen(name)+1);
+         v->name = dmp_get_atom(G->pool, (int)strlen(name)+1);
          strcpy(v->name, name);
          if (G->index != NULL)
          {  xassert(v->entry == NULL);

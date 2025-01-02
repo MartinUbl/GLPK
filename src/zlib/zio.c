@@ -52,7 +52,7 @@ long read(int fd, void *buf, unsigned long nbyte)
       if (!initialized) initialize();
       assert(0 <= fd && fd < FOPEN_MAX);
       assert(file[fd] != NULL);
-      count = fread(buf, 1, nbyte, file[fd]);
+      count = (unsigned long)fread(buf, 1, nbyte, file[fd]);
       if (ferror(file[fd]))
          return -1;
       return count;
@@ -63,7 +63,7 @@ long write(int fd, const void *buf, unsigned long nbyte)
       if (!initialized) initialize();
       assert(0 <= fd && fd < FOPEN_MAX);
       assert(file[fd] != NULL);
-      count = fwrite(buf, 1, nbyte, file[fd]);
+      count = (unsigned long)fwrite(buf, 1, nbyte, file[fd]);
       if (count != nbyte)
          return -1;
       if (fflush(file[fd]) != 0)

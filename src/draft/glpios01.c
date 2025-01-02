@@ -482,7 +482,7 @@ void ios_freeze_node(glp_tree *tree)
                if (name == NULL)
                   r->name = NULL;
                else
-               {  r->name = dmp_get_atom(tree->pool, strlen(name)+1);
+               {  r->name = dmp_get_atom(tree->pool, (int)strlen(name)+1);
                   strcpy(r->name, name);
                }
 #if 1 /* 20/IX-2008 */
@@ -754,7 +754,7 @@ loop: /* recursive deletion starts here */
       {  IOSROW *r;
          r = node->r_ptr;
          if (r->name != NULL)
-            dmp_free_atom(tree->pool, r->name, strlen(r->name)+1);
+            dmp_free_atom(tree->pool, r->name, (int)strlen(r->name)+1);
          while (r->ptr != NULL)
          {  IOSAIJ *a;
             a = r->ptr;
@@ -1342,7 +1342,7 @@ int ios_solve_node(glp_tree *tree)
 #endif
       /* respect time limit */
       if (tree->parm->tm_lim < INT_MAX)
-         parm.tm_lim = tree->parm->tm_lim - (glp_time() - tree->tm_beg);
+         parm.tm_lim = tree->parm->tm_lim - (int)(glp_time() - tree->tm_beg);
       if (parm.tm_lim < 0)
          parm.tm_lim = 0;
       if (tree->parm->msg_lev < GLP_MSG_DBG)
@@ -1491,6 +1491,7 @@ int ios_add_row(glp_tree *tree, IOSPOOL *pool,
 IOSCUT *ios_find_row(IOSPOOL *pool, int i)
 {     /* find row (constraint) in the cut pool */
       xassert(0);
+      return NULL;
 }
 #else
 IOSCUT *ios_find_row(IOSPOOL *pool, int i)
@@ -1665,7 +1666,7 @@ void ios_process_sol(glp_tree *T)
       /* save solution to text file, if requested */
       if (T->save_sol != NULL)
       {  char *fn, *mark;
-         fn = talloc(strlen(T->save_sol) + 50, char);
+         fn = talloc((int)strlen(T->save_sol) + 50, char);
          mark = strrchr(T->save_sol, '*');
          if (mark == NULL)
             strcpy(fn, T->save_sol);
